@@ -7,9 +7,10 @@ package com.example.islam.movie1.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MovieModel {
+public class MovieModel implements Serializable {
 
     @SerializedName("poster_path")
     @Expose

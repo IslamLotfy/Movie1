@@ -1,5 +1,6 @@
 package com.example.islam.movie1;
 
+import android.content.Intent;
 import android.database.Observable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,9 @@ import com.example.islam.movie1.Adapter.MovieListAdapter;
 import com.example.islam.movie1.Models.Constants;
 import com.example.islam.movie1.Models.MovieModel;
 import com.example.islam.movie1.Models.MovieResult;
+import com.example.islam.movie1.Models.Trailers;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +29,8 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private List<MovieModel> movies;
+    private MovieModel movie;
+    private  MovieApiService movieApiService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         ApiModule apiModule=new ApiModule();
-        MovieApiService movieApiService=apiModule.provideApiService();
+        movieApiService=apiModule.provideApiService();
         rx.Observable<MovieResult> topRatedMovies=movieApiService.getTopRatedMovies(Constants.MOST_POPULAR);
         movies=new LinkedList<>();
         topRatedMovies.subscribeOn(Schedulers.newThread())
@@ -48,12 +53,26 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
+
+
     }
 
     private void datafetched(List<MovieModel> movieResult) {
         movies=movieResult;
         MovieListAdapter adapter=new MovieListAdapter(movies,movieModel -> {
-
+            movie=movieModel;
+            Intent intent=new Intent(this,MovieDetail.class);
+            intent.putExtra("model", (Serializable) movieModel);
+            startActivity(intent);
+            rx.Observable<Trailers> trailersObservable=movieApiService.getMovieTrailers(movie.getId());
+            trailersObservable.subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(Trailers :: getResults)
+                    .subscribe(results -> {
+                        Log.e("movies",results.get(0).getKey());
+                    },throwable -> {
+                        Log.e("error",throwable.toString());
+                    });
         });
         recyclerView.setAdapter(adapter);
     }

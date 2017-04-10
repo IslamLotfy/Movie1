@@ -1,3 +1,23 @@
+<!--<resources>-->
+
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+
+    <!--<style name="AppTheme.NoActionBar">-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+    <!--</style>-->
+
+    <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+
+    <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+
+<!--</resources>-->
 <resources>
 
     <!-- Base application theme. -->
@@ -13,8 +33,42 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="MovieItem" parent="CardView">
+        <item name="android:layout_margin">@dimen/outer_space</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <!--<item name="cardPreventCornerOverlap">false</item>-->
+        <item name="cardElevation">4dp</item>
+    </style>
+
+    <style name="CollectionView">
+        <item name="android:padding">@dimen/inner_small</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <style name="MovieItemText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <!-- MovieModel list -->
+    <style name="FavoriteButton" parent="Widget.AppCompat.Light.ActionButton">
+        <item name="android:layout_height">@dimen/abc_action_button_min_height_material</item>
+        <item name="android:layout_width">@dimen/abc_action_button_min_height_material</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:src">@drawable/selector_favorite_button</item>
+        <item name="android:padding">@dimen/inner_space</item>
+    </style>
+
+    <!-- MovieModel details -->
 </resources>

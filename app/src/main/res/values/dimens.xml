@@ -1,3 +1,24 @@
+<!--<resources>-->
+    <!--<dimen name="fab_margin">16dp</dimen>-->
+<!--</resources>-->
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <!-- Texts -->
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Browse Movies -->
+    <item name="movie_item_image_aspect_ratio" format="float" type="dimen">.675</item>
+
+    <!-- MovieModel Details -->
+
+    <!-- Common -->
+    <dimen name="outer_space">16dp</dimen>
+    <dimen name="inner_space">8dp</dimen>
+    <dimen name="inner_small">4dp</dimen>
+    <dimen name="toolbar_height">250dp</dimen>
+    <dimen name="post_width">150dp</dimen>
+    <dimen name="poster_height">200dp</dimen>
+    <dimen name="md_content_textsize">16dp</dimen>
 </resources>

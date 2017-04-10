@@ -26,7 +26,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
 
     public void setView(MovieModel model,MovieSelectedListener listener){
         poster= (ImageView) view.findViewById(R.id.poster);
-        Picasso.with(context).load("http://image.tmdb.org/t/p/w500/"+model.getPosterPath()).into(poster);
+        Picasso.with(context).load("http://image.tmdb.org/t/p/w780/"+model.getPosterPath()).into(poster);
         poster.setOnClickListener(v -> {
             listener.onMovieSelected(model);
         });
