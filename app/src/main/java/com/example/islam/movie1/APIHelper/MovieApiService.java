@@ -3,6 +3,7 @@ package com.example.islam.movie1.APIHelper;
 import com.example.islam.movie1.Models.Constants;
 import com.example.islam.movie1.Models.MovieModel;
 import com.example.islam.movie1.Models.MovieResult;
+import com.example.islam.movie1.Models.Reviews;
 import com.example.islam.movie1.Models.Trailers;
 
 import java.util.List;
@@ -25,6 +26,9 @@ public interface MovieApiService {
 
     @GET("movie/{id}/videos?")
     Observable<Trailers> getMovieTrailers(@Path("id") int id);
+
+    @GET("movie/{id}/reviews?")
+    Observable<Reviews> getMovieReviews(@Path("id") int id);
 
 
 

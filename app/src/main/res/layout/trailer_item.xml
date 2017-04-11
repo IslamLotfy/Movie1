@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/btnTrailers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/movie_trailers"
+        android:tag="@string/movie_trailers"
+        android:background="@color/material_red300"
+        android:textColor="@color/material_white"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_marginBottom="@dimen/inner_space"
+        android:layout_marginRight="@dimen/outer_space"
+        android:layout_marginLeft="@dimen/outer_space"
+        />
+</FrameLayout>

@@ -49,6 +49,11 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
         <android.support.v7.widget.CardView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -122,20 +127,19 @@
                     android:text="fhmkmkwgjnehnrkhkthjtnjhrkhoeemfnegjnrjnrjnhrjnjnehhrnhjgjengjeje"
                     android:layout_margin="@dimen/outer_space"
                     android:textSize="@dimen/md_content_textsize" />
-
-                <Button
-                    android:id="@+id/btnTrailers"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/movie_trailers"
-                    android:tag="@string/movie_trailers"
-                    android:background="@color/material_red300"
-                    android:textColor="@color/material_white"
-                    android:textAppearance="?android:textAppearanceLarge"
-                    android:layout_marginBottom="@dimen/inner_space"
-                    android:layout_marginRight="@dimen/outer_space"
-                    android:layout_marginLeft="@dimen/outer_space"
-                    />
+                    android:layout_height="match_parent">
+
+                </ScrollView>
+
+
+               <android.support.v7.widget.RecyclerView
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:id="@+id/trailers">
+
+               </android.support.v7.widget.RecyclerView>
 
                 <Button
                     android:id="@+id/btnReviews"
@@ -151,8 +155,19 @@
                     android:layout_marginLeft="@dimen/outer_space"
                     />
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/reviews">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+
     </android.support.v4.widget.NestedScrollView>
+
 
 
     <!--<android.support.design.widget.FloatingActionButton-->

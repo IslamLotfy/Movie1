@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by islam on 10/04/17.
  */
-public class Result {
+public class TrailerResult {
 
         @SerializedName("id")
         @Expose

@@ -23,4 +23,5 @@
     <string name="movie_trailers">Trailers</string>
     <string name="empty_favourites">You have no favourites</string>
     <string name="main_activity_label">Popular Movies</string>
+    <string name="title_activity_review">Review</string>
 </resources>

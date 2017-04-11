@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.islam.movie1.APIHelper.ApiModule;
 import com.example.islam.movie1.APIHelper.MovieApiService;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
     private void datafetched(List<MovieModel> movieResult) {
@@ -63,16 +65,20 @@ public class MainActivity extends AppCompatActivity {
             movie=movieModel;
             Intent intent=new Intent(this,MovieDetail.class);
             intent.putExtra("model", (Serializable) movieModel);
+//            rx.Observable<Trailers> trailersObservable=movieApiService.getMovieTrailers(movieModel.getId());
+//            trailersObservable.subscribeOn(Schedulers.newThread())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .map(Trailers :: getResults)
+//                    .subscribe(results -> {
+//                        Log.e("movies",results.get(0).getKey());
+//                        Toast.makeText(this,results.get(0).getName(),Toast.LENGTH_SHORT).show();
+////                        trailerUrl+="https://www.youtube.com/watch?v="+results.get(0).getKey();
+////                        resultList=results;
+////                        initTrailers();
+//                    },throwable -> {
+//                        Log.e("error",throwable.toString());
+//                    });
             startActivity(intent);
-            rx.Observable<Trailers> trailersObservable=movieApiService.getMovieTrailers(movie.getId());
-            trailersObservable.subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map(Trailers :: getResults)
-                    .subscribe(results -> {
-                        Log.e("movies",results.get(0).getKey());
-                    },throwable -> {
-                        Log.e("error",throwable.toString());
-                    });
         });
         recyclerView.setAdapter(adapter);
     }
