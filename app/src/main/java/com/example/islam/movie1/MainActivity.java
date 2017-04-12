@@ -1,30 +1,22 @@
 package com.example.islam.movie1;
 
 import android.content.Intent;
-import android.database.Observable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import com.example.islam.movie1.APIHelper.ApiModule;
 import com.example.islam.movie1.APIHelper.MovieApiService;
 import com.example.islam.movie1.Adapter.MovieListAdapter;
-import com.example.islam.movie1.Models.Constants;
 import com.example.islam.movie1.Models.MovieModel;
 import com.example.islam.movie1.Models.MovieResult;
-import com.example.islam.movie1.Models.Trailers;
-
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
     private List<MovieModel> movies;
     private MovieModel movie;
     private  MovieApiService movieApiService;
+    private String sortType;
+    private AppPreference appPreference;
+    private static final java.lang.String SORT_TYPE = "sort_type";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +38,37 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         ApiModule apiModule=new ApiModule();
         movieApiService=apiModule.provideApiService();
-        rx.Observable<MovieResult> topRatedMovies=movieApiService.getTopRatedMovies(Constants.MOST_POPULAR);
+        appPreference = AppPreference.getInstance(getApplicationContext());
+        if(savedInstanceState!=null)
+            sortType=savedInstanceState.getString(SORT_TYPE);
+        sortType=appPreference.getSortType();
+        retrieveMovies();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String prefSortType = appPreference.getSortType();
+        if (!sortType.equals(appPreference.getSortType())) {
+            sortType=prefSortType;
+            retrieveMovies();
+        }
+        appPreference.setSortType(sortType);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String prefSortType = appPreference.getSortType();
+        if (!sortType.equals(appPreference.getSortType())) {
+            sortType=prefSortType;
+            retrieveMovies();
+        }
+        appPreference.setSortType(sortType);
+    }
+
+    private void retrieveMovies() {
+        rx.Observable<MovieResult> topRatedMovies=movieApiService.getTopRatedMovies(sortType);
         movies=new LinkedList<>();
         topRatedMovies.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,9 +81,22 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void datafetched(List<MovieModel> movieResult) {
@@ -65,21 +105,13 @@ public class MainActivity extends AppCompatActivity {
             movie=movieModel;
             Intent intent=new Intent(this,MovieDetail.class);
             intent.putExtra("model", (Serializable) movieModel);
-//            rx.Observable<Trailers> trailersObservable=movieApiService.getMovieTrailers(movieModel.getId());
-//            trailersObservable.subscribeOn(Schedulers.newThread())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .map(Trailers :: getResults)
-//                    .subscribe(results -> {
-//                        Log.e("movies",results.get(0).getKey());
-//                        Toast.makeText(this,results.get(0).getName(),Toast.LENGTH_SHORT).show();
-////                        trailerUrl+="https://www.youtube.com/watch?v="+results.get(0).getKey();
-////                        resultList=results;
-////                        initTrailers();
-//                    },throwable -> {
-//                        Log.e("error",throwable.toString());
-//                    });
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(SORT_TYPE, sortType);
     }
 }

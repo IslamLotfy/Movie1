@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.islam.movie1.APIHelper.ApiModule;
 import com.example.islam.movie1.APIHelper.MovieApiService;
@@ -97,11 +98,14 @@ public class MovieDetailFragment extends Fragment {
                 .map(Reviews ::getReViewResults)
                 .subscribe(results -> {
                     reViewResultList =results;
-//                    Log.e("error",reViewResultList.toString());
-                    Log.e("result",results.get(0).getAuthor());
                     recyclerView.setAdapter(new ReviewAdapter(results));
+                    if(results.size()>0){
+                        Toast.makeText(getActivity(),"please scroll to see the reviews",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getActivity(),"thist movie doesn't have any reviews",Toast.LENGTH_SHORT).show();
+                    }
 
-                },throwable -> {
+                    },throwable -> {
                     Log.e("error",throwable.toString());
                 });
     }
@@ -113,12 +117,13 @@ public class MovieDetailFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(Trailers ::getResults)
                 .subscribe(results -> {
-                    Log.e("results",results.toString());
-
                     trailerResultList =results;
                     trailrRecyclerView.setAdapter(new TrailerAdapter(results,model -> {
                         watchYoutubeVideo(model.getKey());
                     }));
+                    if(results.size()<=0){
+                        Toast.makeText(getActivity(),"thist movie doesn't have any trailers",Toast.LENGTH_SHORT).show();
+                    }
                 },throwable -> {
                     Log.e("error",throwable.toString());
                 });

@@ -21,8 +21,8 @@ import rx.Observable;
 
 public interface MovieApiService {
 
-    @GET("discover/movie")
-    Observable<MovieResult> getTopRatedMovies(@Query("sort_by") String sort);
+    @GET("movie/{sort}?")
+    Observable<MovieResult> getTopRatedMovies(@Path("sort") String sort);
 
     @GET("movie/{id}/videos?")
     Observable<Trailers> getMovieTrailers(@Path("id") int id);

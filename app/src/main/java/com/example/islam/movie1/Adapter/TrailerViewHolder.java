@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.islam.movie1.Models.TrailerResult;
-import com.example.islam.movie1.Models.Trailers;
 import com.example.islam.movie1.R;
 
 /**

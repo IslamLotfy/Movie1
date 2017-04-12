@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.islam.movie1.Models.ReviewResult;
-import com.example.islam.movie1.Models.TrailerResult;
 import com.example.islam.movie1.R;
 
 /**

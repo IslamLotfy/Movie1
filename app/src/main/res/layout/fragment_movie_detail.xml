@@ -165,20 +165,5 @@
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
 
-
     </android.support.v4.widget.NestedScrollView>
-
-
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/favorite_fab"-->
-        <!--style="@style/FavoriteButton"-->
-        <!--android:layout_margin="@dimen/outer_space"-->
-        <!--android:clickable="true"-->
-        <!--android:background="@color/material_white"-->
-        <!--app:pressedTranslationZ="12dp"-->
-        <!--app:layout_anchor="@id/app_bar_layout"-->
-        <!--app:layout_anchorGravity="bottom|right|end"/>-->
 </android.support.design.widget.CoordinatorLayout>
