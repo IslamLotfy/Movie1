@@ -39,4 +39,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public int getItemCount() {
         return movieModels.size();
     }
+
+    public List<MovieModel> getItems() {
+        return movieModels;
+    }
 }

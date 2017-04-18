@@ -4,13 +4,16 @@ package com.example.islam.movie1.Models;
  * Created by islam on 05/04/17.
  */
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class MovieModel implements Serializable {
+public class MovieModel implements Serializable,Parcelable {
 
     @SerializedName("poster_path")
     @Expose
@@ -54,6 +57,19 @@ public class MovieModel implements Serializable {
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
+
+    private boolean isFavourite;
+
+    public MovieModel(int id,String title,String overview,String posterPath,String backdropPath,String releaseDate,double voteAverage,boolean video){
+        this.id=id;
+        this.title=title;
+        this.overview=overview;
+        this.posterPath=posterPath;
+        this.backdropPath=backdropPath;
+        this.releaseDate=releaseDate;
+        this.voteAverage=voteAverage;
+        this.video=video;
+    }
 
     public String getPosterPath() {
         return posterPath;
@@ -167,4 +183,51 @@ public class MovieModel implements Serializable {
         this.voteAverage = voteAverage;
     }
 
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.posterPath);
+        dest.writeString(this.overview);
+        dest.writeString(this.releaseDate);
+        dest.writeValue(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.backdropPath);
+        dest.writeValue(this.voteAverage);
+        dest.writeValue(this.isFavourite);
+    }
+
+    protected MovieModel(Parcel in) {
+        this.posterPath = in.readString();
+        this.overview = in.readString();
+        this.releaseDate = in.readString();
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.title = in.readString();
+        this.backdropPath = in.readString();
+        this.voteAverage = (Double) in.readValue(Double.class.getClassLoader());
+        this.isFavourite = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    }
+
+    public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
+        @Override
+        public MovieModel createFromParcel(Parcel source) {
+            return new MovieModel(source);
+        }
+
+        @Override
+        public MovieModel[] newArray(int size) {
+            return new MovieModel[size];
+        }
+    };
 }

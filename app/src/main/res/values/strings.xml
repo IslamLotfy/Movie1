@@ -5,6 +5,7 @@
     <string name="popular">popular</string>
     <string name="top_rated">top_rated</string>
     <string name="setting_label">Sort By</string>
+    <string name="favorites">favorites</string>
     <string name="sort_type">sortBy</string>
     <string name="top_rated_summary">Top Rated</string>
     <string name="base_image_url">http://image.tmdb.org/t/p/w185/</string>
